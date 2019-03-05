@@ -1,0 +1,39 @@
+mongo
+mongoimport --help
+ls
+pwd
+mongoimport --db myNewDatabase --collection mine --type csv --headerline --file emotions.csv
+mongo
+
+	> db.mine.find( { "label" : "NEGATIVE" } ).count()
+	> db.mine.find( { "label" : "POSITIVE" } ).count()
+	> db.mine.find( { "label" : "NEUTRAL" } ).count()
+	> db.mine.find().count()
+	> db.mine.dataSize()
+	> db.mine.findOne()
+	> db
+	> show dbs
+	> show collections
+	> use mine
+	> show collections
+	> use myNewDatabase
+	> show collections
+mongo
+	> show dbs
+	> use myNewDatabase
+	> show collections
+	> db.createView(
+	...    "tablo",
+	...    "mine",
+	...    [ { $project: { "labels": "$label", "ilkort" :"$# mean_0_a", "ikinciort":"$mean_1_a", "üçüncüort": "$mean_2_a", "dördüncüort":"$mean_3_a", "beşinciort":"$mean_4_a" } } ]
+	... )
+	> db.tablo.find()
+	> db.tablo.find()
+	> db.tablo.find({"labels":"NEGATIVE"})
+	> db.tablo.find({"labels":"NEGATIVE"}).count()
+	> db.tablo.find({"labels":"POSITIVE"}).count()
+	> db.tablo.find({"labels":"NEUTRAL"}).count()
+	> show collections
+	> ^C
+mongoexport --db myNewDatabase --collection tablo --type=csv --fields _id,labels,ilkort,ikinciort,üçüncüort,dördüncüort,beşinciort --out ortalamalar
+
